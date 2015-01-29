@@ -1,0 +1,119 @@
+
+
+public class myCustomInventory{
+
+public static Inventory myInventory = Bukkit.getServer().createInventory(null, 18,
+			ChatColor.BLACK + "Kit Selector");
+			
+			
+			
+/////			The "null" says that anyone get access the inventory
+/////			The "18" states how many inventory boxes, this has to be a multiple of 9, goes up to 54 which is double chest
+/////	    "Kit Selector" is the name of the inventory that pops up once you open the inventory
+	    
+	    
+	    
+	    
+	ItemStack barbariankit = createItem(Material.WOOD_AXE, 1, ChatColor.AQUA +"The Barbarian", "");
+	                                       //material     //amount   //TheDisplayName        //lore
+	
+/////	We are creating the items inside the inventory that you will click to get the kits
+	
+	
+	
+	
+/////	Basically, just make the rest of the kits in this fashion
+	
+	
+	
+	
+	ItemStack fightkit = createItem(Material.IRON_SWORD, 1, ChatColor.AQUA +"", "");
+
+	ItemStack specialkit = createItem(Material.NETHER_STAR, 1, ChatColor.AQUA +"", "");
+	ItemStack dailykit = createItem(Material.GOLD_BLOCK, 1, ChatColor.AQUA + "", "");
+	
+    ItemStack donatorkit = createItem(Material.PAPER, 1, "", "");
+	static {
+	
+	
+	/////This is where we set the itemstacks
+	
+	                    //////((0) is the first spot in the inventory), 1 is the second spot, so on and so on   
+	                    
+	                    
+		myInventory.setItem(0, plugin.barbariankit);
+		myInventory.setItem(2, plugin.fightkit);
+
+		myInventory.setItem(6, plugin.specialkit);
+		myInventory.setItem(8, plugin.dailykit);
+		myInventory.setItem(17, plugin.donatorkit);
+	}
+	}
+	********************************************************************************************************************
+	public class Inv implements Listener{
+	
+	
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+    Player player = (Player) event.getWhoClicked(); // The player that clicked the item
+    ItemStack clicked = event.getCurrentItem(); // The item that was clicked
+    Inventory inventory = event.getInventory(); // The inventory that was clicked in
+    if (inventory.getName().equals(myCustomInventory.myInventory.getName())) { // The inventory is our custom Inventory
+    	             
+    	             
+    	             
+    	             
+    	             /////////////from the barbarian kit                            //////////if the display name equals the one we set
+ if (clicked.getType() == Material.WOOD_AXE && clicked.getItemMeta().getDisplayName().equalsIgnoreCase("The Barbarian")) { // The item that the player clicked it dirt
+    
+    
+    event.setCancelled(true);/////////The wood axe doesn't move ☺
+    
+    
+    ////////add a new itemstack to there inventory which is the LEATHER_HELMET
+    player.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET);
+    player.getInventory().addItem(new ItemStack(Material.LEATHER_CHESTPLATE);
+    player.getInventory().addItem(new ItemStack(Material.LEATHER_LEGGINGS);
+    player.getInventory().addItem(new ItemStack(Material.LEATHER_BOOTS);
+    
+    
+}
+ if (clicked.getType() == Material.IRON_SWORD && clicked.getItemMeta().getDisplayName().equalsIgnoreCase("The FIGHTING KIT")) { // The item that the player clicked it dirt
+    
+    
+    event.setCancelled(true);
+    
+    
+    ////////add a new itemstack to there inventory which is the LEATHER_HELMET
+    player.getInventory().addItem(new ItemStack(Material.IRON_HELMET);
+    player.getInventory().addItem(new ItemStack(Material.IRON_CHESTPLATE);
+    player.getInventory().addItem(new ItemStack(Material.IRON_LEGGINGS);
+    player.getInventory().addItem(new ItemStack(Material.IRON_BOOTS);
+    //////////////////////////////starting to get it?
+    ////////////////////////////////Let's say we needed to enchant some sword
+    
+    ItemStack sword = new ItemStack(Material.IRON_SWORD):
+    sword.addEnchantment(DAMAGE_ALL, 1);// sharpness 1/// look them up online to see what is each enchantment
+    ///////////////////////////////Let's say we need to add display name
+    ItemMeta m = sword.getItemMeta();
+    m.setDisplayName("The might IRON sword");
+    
+    player.getInventory().addItem(sword);
+    /////you might be thinking my we didn't do the       create(Material.WOOD_AXE, 1, "fdsf' blah blah blah);
+    /////I'll just say we called a method from the other class in CustomInventory
+    //now make every kit
+}
+if (clicked.getType() == Material.**the material** && clicked.getItemMeta().getDisplayName().equalsIgnoreCase(*display name of the material, remember strings are in " "*)) {
+    
+    
+    event.setCancelled(true);
+    
+////////////////////oh yah, do this all in the actual files, not this "How its all done"
+
+}
+}
+}
+	
+	
+	}
+	
