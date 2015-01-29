@@ -1,0 +1,59 @@
+package me.danny.thekits;
+
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+public class mcListener implements Listener{
+
+	
+	myCustomInventory mci = new myCustomInventory();
+	
+	
+
+
+
+
+	@EventHandler
+	public void openInv(PlayerInteractEvent event) {
+		 Player player = event.getPlayer(); // Player who 'interacted'
+			if ((event.getAction() == Action.RIGHT_CLICK_AIR)
+					|| (event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+				ItemStack i = player.getItemInHand();
+				if (i != null  && player.getItemInHand().getType() == Material.BOOK) {
+					if(player.getItemInHand().getItemMeta().getDisplayName() != null){
+						if(i.getItemMeta().getDisplayName().equalsIgnoreCase(mci.getNamed()))
+						player.openInventory(myCustomInventory.myInventory);
+
+					}else if(player.getItemInHand().getItemMeta().getDisplayName() == null){
+						player.sendMessage("null pointer");
+					}
+					
+						
+					
+
+}
+			}
+	}
+	@EventHandler
+	public void onPJoin(PlayerJoinEvent e) {
+	 ItemStack Book = new ItemStack(Material.BOOK);
+		ItemMeta BookIM = Book.getItemMeta();
+		BookIM.setDisplayName(mci.getNamed());
+		Book.setItemMeta(BookIM);
+		Player p = e.getPlayer();
+		
+			
+		
+		p.getInventory().addItem(Book);
+		p.updateInventory();
+		
+	}
+
+}
