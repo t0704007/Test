@@ -1,0 +1,126 @@
+package me.danny.thekits;
+
+import java.util.Arrays;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class myCustomInventory extends JavaPlugin  {
+	
+	public Permission god = new Permission("myCustomInventory.god");
+	public Permission mvp = new Permission("myCustomInventory.mvp");
+	public Permission lord = new Permission("myCustomInventory.lord");
+	public Permission donator = new Permission("myCustomInventory.donator");
+	public Permission vip = new Permission("myCustomInventory.vip");
+	public Permission player = new Permission("myCustomInventory.player");
+
+	
+	public static String name = ChatColor.GOLD + "THE SELECTOR";
+
+	public static myCustomInventory plugin;
+
+	public void onEnable() {
+		
+		PluginManager pm = Bukkit.getPluginManager();
+
+		pm.registerEvents(new Inv(), this);
+		
+		pm.registerEvents(new mcListener(), this);
+		
+
+		pm.addPermission(god);
+		pm.addPermission(mvp);
+		pm.addPermission(lord);
+		pm.addPermission(donator);
+		pm.addPermission(vip);
+		pm.addPermission(player);
+		
+		plugin = this;
+
+	}
+	
+
+///////ttdtstsatst
+
+	public static Inventory myInventory = Bukkit.getServer().createInventory(null, 18,
+			ChatColor.BLACK + "Kit Selector");
+	// The first parameter, is the inventory owner. I make it null to let
+	// everyone use it.
+	// The second parameter, is the slots in a inventory. Must be a multiple of
+	// 9. Can be up to 54.
+	// The third parameter, is the inventory name. This will accept chat colors
+	ItemStack barbariankit = createItem(Material.WOOD_AXE, 1, ChatColor.AQUA +"The Barbarian", "");
+	ItemStack fightkit = createItem(Material.IRON_SWORD, 1, ChatColor.AQUA +"", "");
+
+	ItemStack specialkit = createItem(Material.NETHER_STAR, 1, ChatColor.AQUA +"", "");
+	ItemStack dailykit = createItem(Material.GOLD_BLOCK, 1, ChatColor.AQUA + "", "");
+	
+    ItemStack donatorkit = createItem(Material.PAPER, 1, "", "");
+	static {
+		myInventory.setItem(0, plugin.barbariankit);
+		myInventory.setItem(2, plugin.fightkit);
+
+		myInventory.setItem(6, plugin.specialkit);
+		myInventory.setItem(8, plugin.dailykit);
+		myInventory.setItem(17, plugin.donatorkit);
+	}
+
+	
+////std//td/std/s/dt/s	
+	
+	
+	
+	
+	
+	
+	
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+		
+		if (cmd.getName().equalsIgnoreCase("inventory") && sender instanceof Player && sender.isOp()){
+			
+				Player player = (Player) sender;
+				player.openInventory(myInventory);
+				
+			
+			
+			
+		}else if( !(sender instanceof Player)){
+			
+			sender.sendMessage("You have to be a plyaer");
+			return true;
+		}
+		return false;
+		
+	}
+	private ItemStack createItem(Material material, int amount,  String displayname, String lore) {
+		ItemStack item = new ItemStack(material, amount);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(displayname);
+		meta.setLore(Arrays.asList(lore));
+		item.setItemMeta(meta);
+		return item;
+	}
+	public String getNamed() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+	
+
+}
